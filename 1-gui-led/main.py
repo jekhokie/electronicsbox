@@ -8,7 +8,6 @@
 
 import Tkinter as tk
 import RPi.GPIO as GPIO
-import time
 from gpiozero import LED
 
 # set the GPIO pin for the LED
