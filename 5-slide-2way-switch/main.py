@@ -25,12 +25,15 @@ GPIO.setup(SWITCH_STATE1_PIN, GPIO.IN)
 GPIO.setup(SWITCH_STATE2_PIN, GPIO.IN)
 
 # continuously check and print state of switch
-while True:
-    if (GPIO.input(SWITCH_STATE1_PIN) == 1):
-        print("Switch in Position 1 (LEFT)")
-    elif (GPIO.input(SWITCH_STATE2_PIN) == 1):
-        print("Switch in Position 2 (RIGHT)")
-    else:
-        print("Error: Unable to detect switch state")
+try:
+    while True:
+        if (GPIO.input(SWITCH_STATE1_PIN) == 1):
+            print("Switch in Position 1 (LEFT)")
+        elif (GPIO.input(SWITCH_STATE2_PIN) == 1):
+            print("Switch in Position 2 (RIGHT)")
+        else:
+            print("Error: Unable to detect switch state")
 
-    time.sleep(1)
+        time.sleep(1)
+except KeyboardInterrupt:
+    GPIO.cleanup()
