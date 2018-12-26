@@ -4,14 +4,14 @@
 # Assumes the following wiring:
 #
 # - LED NEG(-) to 1k Resistor to RasPi GND
-# - LED POS(+) to RasPi GPIO26
+# - LED POS(+) to RasPi GPIO23
 
 import Tkinter as tk
 import RPi.GPIO as GPIO
 from gpiozero import LED
 
 # set the GPIO pin for the LED
-LED_PIN = 26
+LED_PIN = 23
 
 # set GPIO mode to BCM
 GPIO.setmode(GPIO.BCM)

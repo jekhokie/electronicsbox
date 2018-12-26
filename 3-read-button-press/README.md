@@ -5,7 +5,7 @@ PI 3 B+ and prints output to the terminal indicating whether the button is curre
 pressed. Assumes the following wiring:
 
 - Button END1 to RasPi GND
-- Button END2 to RasPi GPIO13
+- Button END2 to RasPi GPIO24
 
 To run, execute the python script:
 

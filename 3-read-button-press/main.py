@@ -5,7 +5,7 @@
 # Assumes the following wiring:
 #
 # - Button END1 to RasPi GND
-# - Button END2 to RasPi GPIO13
+# - Button END2 to RasPi GPIO24
 #
 # Credit: http://razzpisampler.oreilly.com/ch07.html
 
@@ -16,7 +16,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # assign the current pin for GPIO
-BUTTON_GPIO = 13
+BUTTON_GPIO = 24
 
 # set the GPIO pin to pull-up input mode
 GPIO.setup(BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)

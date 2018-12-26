@@ -4,13 +4,13 @@
 # PI 3 B+. Assumes the following wiring:
 #
 # - LED NEG(-) to 1k Resistor to RasPi GND
-# - LED POS(+) to RasPi GPIO26
+# - LED POS(+) to RasPi GPIO23
 
 import RPi.GPIO as GPIO
 import time
 
 # identify the GPIO pin to use
-LED_PIN = 26
+LED_PIN = 23
 
 # use BCM pin mode
 GPIO.setmode(GPIO.BCM)

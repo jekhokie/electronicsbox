@@ -7,7 +7,7 @@
 # The following wiring assumptions are present:
 #   LED:
 #     - LED NEG(-) to 1k Resistor to RasPi GND
-#     - LED POS(+) to RasPi GPIO26
+#     - LED POS(+) to RasPi GPIO23
 #
 #   DT11 Temperature/Humidity Sensor (Assumes built-in 10k pull-up resistor):
 #     - GND to RasPi GND
@@ -18,7 +18,7 @@
 #
 #   Push-Button:
 #     - Button END1 to RasPi GND
-#     - Button END2 to RasPi GPIO13
+#     - Button END2 to RasPi GPIO24
 #
 #   Active Buzzer:
 #     - Buzzer POS(+) to RasPi GPIO18
@@ -54,10 +54,10 @@ WINDOW_WIDTH = 48
 
 # sensor pin defaults
 TEMP_PIN          = 4
-BUTTON_PIN        = 13
 SWITCH_STATE1_PIN = 17
 BUZZER_PIN        = 18
-LED_PIN           = 26
+LED_PIN           = 23
+BUTTON_PIN        = 24
 SWITCH_STATE2_PIN = 27
 
 # refresh defaults
