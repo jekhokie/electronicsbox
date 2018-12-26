@@ -21,4 +21,7 @@ To run, execute the python script:
 $ python main.py
 ```
 
-You should see a GUI appear showing various values based on previous sensors integrated.
+You should see a GUI appear showing various values based on previous sensors integrated. Below
+is a sample screenshot that shows all sensors through project 3 (3-read-button-press):
+
+![GUI](img/gui.png "GUI")
