@@ -23,11 +23,11 @@ GPIO.setup(BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # attempt to read the state of the button and print the result
 while True:
-  input_state = GPIO.input(BUTTON_GPIO)
+    input_state = GPIO.input(BUTTON_GPIO)
 
-  if input_state == False:
-    print("Button Pressed")
-  else:
-    print("Button Depressed")
+    if input_state == False:
+        print("Button Pressed")
+    else:
+        print("Button Depressed")
 
-  time.sleep(0.2)
+    time.sleep(0.2)
