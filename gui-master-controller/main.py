@@ -20,6 +20,12 @@
 #     - Button END1 to RasPi GND
 #     - Button END2 to RasPi GPIO13
 #
+#   Active Buzzer:
+#     - Buzzer POS(+) to RasPi GPIO18
+#     - Buzzer NEG(-) to RasPi GND
+#     - LED POS(+) to RasPi GPIO18
+#     - LED NEG(-) to 1k Ohm Resistor to RasPi GND
+#
 # Prerequisites for Adafruit_DHT library:
 #   sudo apt-get install git-core build-essential python-dev
 #   git clone https://github.com/adafruit/Adafruit_python_DHT.git
@@ -32,6 +38,10 @@ import Tkinter as tk
 import RPi.GPIO as GPIO
 from gpiozero import LED
 
+# set GPIO mode to BCM
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
 # GUI Defaults
 WINDOW_WIDTH = 48
 
@@ -39,6 +49,7 @@ WINDOW_WIDTH = 48
 TEMP_PIN = 4
 BUTTON_PIN = 13
 LED_PIN = 26
+BUZZER_PIN = 18
 
 # refresh defaults
 TIME_UPDATE_FREQ = 1000
@@ -49,10 +60,16 @@ class App:
 
     def __init__(self, master):
         # initialize the sensor controls
+        # - LED
         self.led = LED(LED_PIN)
+        # - temp/humidity sensor
         self.temp_sensor = Adafruit_DHT.DHT11
         self.temp_sensor_pin = TEMP_PIN
+        # - button
         GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        # - buzzer
+        GPIO.setup(BUZZER_PIN, GPIO.OUT)
+        GPIO.output(BUZZER_PIN, GPIO.LOW)
 
         # add a label
         main_label = tk.Label(master, text="Control All The Things!", height=3, width=WINDOW_WIDTH)
@@ -85,6 +102,10 @@ class App:
         self.button_label.grid(row=4, column=1, columnspan=1)
         self.button_value = tk.Label(master, text="(Initializing...)", height=3)
         self.button_value.grid(row=4, column=2, columnspan=1)
+
+        # add a button to control the Active Buzzer
+        self.buzzer_control = tk.Button(master, text="Turn On Buzzer", command=self.toggle_buzzer, height=3, width=WINDOW_WIDTH)
+        self.buzzer_control.grid(row=5, columnspan=4)
 
         # add a button to exit
         exit_button = tk.Button(master, text="EXIT", command=self.quitApp, height=3, width=WINDOW_WIDTH)
@@ -130,11 +151,21 @@ class App:
         else:
             self.led.on()
 
+    # control the Active Buzzer on/off capability
+    def toggle_buzzer(self):
+        if (GPIO.input(BUZZER_PIN) == 1):
+            GPIO.output(BUZZER_PIN, GPIO.LOW)
+            self.buzzer_control["text"] = "Turn On Buzzer"
+        else:
+            GPIO.output(BUZZER_PIN, GPIO.HIGH)
+            self.buzzer_control["text"] = "Turn Off Buzzer"
+
+    # handle quitting application
     def quitApp(self):
         root.destroy()
 
 # initialize the TK framework
 root = tk.Tk()
-root.title("LED Control")
+root.title("Full Control")
 app = App(root)
 root.mainloop()

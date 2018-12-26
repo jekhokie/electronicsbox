@@ -14,6 +14,7 @@ README.md documents, respectively):
 - 1-gui-led
 - 2-read-temp-humidity
 - 3-read-button-press
+- 4-gui-buzzer
 
 To run, execute the python script:
 
