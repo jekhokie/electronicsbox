@@ -26,6 +26,13 @@
 #     - LED POS(+) to RasPi GPIO18
 #     - LED NEG(-) to 1k Ohm Resistor to RasPi GND
 #
+#   2-Way, 3-Wire Switch:
+#     - SWITCH MIDDLE PIN to RasPi +3.3V
+#     - SWITCH LEFT PIN to RasPi GPIO17
+#     - SWITCH RIGHT PIN to RasPi GPIO27
+#     - SWITCH LEFT PIN to 10k Ohm Resistor to RasPi GND (parallel)
+#     - SWITCH RIGHT PIN to 10k Ohm Resistor to RasPi GND (parallel)
+#
 # Prerequisites for Adafruit_DHT library:
 #   sudo apt-get install git-core build-essential python-dev
 #   git clone https://github.com/adafruit/Adafruit_python_DHT.git
@@ -46,15 +53,18 @@ GPIO.setwarnings(False)
 WINDOW_WIDTH = 48
 
 # sensor pin defaults
-TEMP_PIN = 4
-BUTTON_PIN = 13
-LED_PIN = 26
-BUZZER_PIN = 18
+TEMP_PIN          = 4
+BUTTON_PIN        = 13
+SWITCH_STATE1_PIN = 17
+BUZZER_PIN        = 18
+LED_PIN           = 26
+SWITCH_STATE2_PIN = 27
 
 # refresh defaults
 TIME_UPDATE_FREQ = 1000
-TEMP_UPDATE_FREQ = 2000
+TEMP_UPDATE_FREQ = 5000
 BUTTON_UPDATE_FREQ = 1000
+SWITCH_UPDATE_FREQ = 1000
 
 class App:
 
@@ -70,6 +80,9 @@ class App:
         # - buzzer
         GPIO.setup(BUZZER_PIN, GPIO.OUT)
         GPIO.output(BUZZER_PIN, GPIO.LOW)
+        # - 2-way switch
+        GPIO.setup(SWITCH_STATE1_PIN, GPIO.IN)
+        GPIO.setup(SWITCH_STATE2_PIN, GPIO.IN)
 
         # add a label
         main_label = tk.Label(master, text="Control All The Things!", height=3, width=WINDOW_WIDTH)
@@ -86,22 +99,28 @@ class App:
         self.led_control.grid(row=2, columnspan=4)
 
         # add a label and value for the temperature
-        self.temp_label = tk.Label(master, text="Temperature:", height=3)
-        self.temp_label.grid(row=3, column=0, columnspan=1)
+        temp_label = tk.Label(master, text="Temperature:", height=3)
+        temp_label.grid(row=3, column=0, columnspan=1)
         self.temp_value = tk.Label(master, text="(Initializing...)", height=3)
         self.temp_value.grid(row=3, column=1, columnspan=1)
 
         # add a label and value for the humidity
-        self.humid_label = tk.Label(master, text="Humidity:", height=3)
-        self.humid_label.grid(row=3, column=2, columnspan=1)
+        humid_label = tk.Label(master, text="Humidity:", height=3)
+        humid_label.grid(row=3, column=2, columnspan=1)
         self.humid_value = tk.Label(master, text="(Initializing...)", height=3)
         self.humid_value.grid(row=3, column=3, columnspan=1)
 
         # add a label and value for the button status
-        self.button_label = tk.Label(master, text="Button:", height=3)
-        self.button_label.grid(row=4, column=1, columnspan=1)
+        button_label = tk.Label(master, text="Button:", height=3)
+        button_label.grid(row=4, column=0, columnspan=1)
         self.button_value = tk.Label(master, text="(Initializing...)", height=3)
-        self.button_value.grid(row=4, column=2, columnspan=1)
+        self.button_value.grid(row=4, column=1, columnspan=1)
+
+        # add a label and value for the 2-way switch status
+        switch_label = tk.Label(master, text="Switch:", height=3)
+        switch_label.grid(row=4, column=2, columnspan=1)
+        self.switch_value = tk.Label(master, text="(Initializing...)", height=3)
+        self.switch_value.grid(row=4, column=3, columnspan=1)
 
         # add a button to control the Active Buzzer
         self.buzzer_control = tk.Button(master, text="Turn On Buzzer", command=self.toggle_buzzer, height=3, width=WINDOW_WIDTH)
@@ -119,6 +138,9 @@ class App:
 
         # set a loop to update the button data every 1 seconds
         master.after(BUTTON_UPDATE_FREQ, self.update_button_status)
+
+        # set a loop to update the 2-way switch data every 1 seconds
+        master.after(SWITCH_UPDATE_FREQ, self.update_switch_status)
 
     # update the temperature and humidity values
     def update_temp_humidity(self):
@@ -144,12 +166,26 @@ class App:
         self.button_value["text"] = button_status
         self.button_value.after(BUTTON_UPDATE_FREQ, self.update_button_status)
 
+    # update the 2-way switch position
+    def update_switch_status(self):
+        switch_status = "UNK"
+
+        if (GPIO.input(SWITCH_STATE1_PIN) == 1):
+            switch_status = "LEFT"
+        elif (GPIO.input(SWITCH_STATE2_PIN) == 1):
+            switch_status = "RIGHT"
+
+        self.switch_value["text"] = switch_status
+        self.switch_value.after(SWITCH_UPDATE_FREQ, self.update_switch_status)
+
     # control the LED on/off capability
     def toggle_led(self):
         if self.led.is_lit:
             self.led.off()
+            self.led_control["text"] = "Turn On LED"
         else:
             self.led.on()
+            self.led_control["text"] = "Turn Off LED"
 
     # control the Active Buzzer on/off capability
     def toggle_buzzer(self):
@@ -165,7 +201,10 @@ class App:
         root.destroy()
 
 # initialize the TK framework
-root = tk.Tk()
-root.title("Full Control")
-app = App(root)
-root.mainloop()
+try:
+    root = tk.Tk()
+    root.title("Full Control")
+    app = App(root)
+    root.mainloop()
+except KeyboardInterrupt:
+    print("Exiting...")
