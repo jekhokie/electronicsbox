@@ -28,14 +28,16 @@ import time
 from gpiozero import LED
 
 WINDOW_WIDTH = 48
+LED_PIN = 26
+TEMP_PIN = 4
 
 class App:
 
     def __init__(self, master):
         # initialize the sensor controls
-        self.led = LED(26)
+        self.led = LED(LED_PIN)
         self.temp_sensor = Adafruit_DHT.DHT11
-        self.temp_sensor_pin = 4
+        self.temp_sensor_pin = TEMP_PIN
 
         # add a label
         main_label = tk.Label(master, text="Control All The Things!", height=3, width=WINDOW_WIDTH)
