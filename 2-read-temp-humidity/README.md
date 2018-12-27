@@ -20,3 +20,7 @@ $ python main.py
 
 You should see temperature and humidity values scroll by your screen every ~2 seconds, which
 is the general refresh rate for the sensor.
+
+## Circuit Diagram
+
+![Circuit](img/read-temp-humidity.png "Circuit")
