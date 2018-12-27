@@ -12,3 +12,7 @@ $ python main.py
 ```
 
 You should then see the LED blink every 1 second on/off.
+
+## Circuit Diagram
+
+![Circuit](img/blink-led.png "Circuit")
