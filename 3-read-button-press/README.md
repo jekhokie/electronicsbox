@@ -14,3 +14,7 @@ $ python main.py
 ```
 
 You should see the screen output whether the button is currently pressed/depressed.
+
+## Circuit Diagram
+
+![Circuit](img/button.png "Circuit")
