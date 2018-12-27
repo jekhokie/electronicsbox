@@ -13,3 +13,7 @@ $ python main.py
 ```
 
 You should then see a GUI pop up where you can control an LED on/off functionality.
+
+## Circuit Diagram
+
+![Circuit](img/gui-led.png "Circuit")
