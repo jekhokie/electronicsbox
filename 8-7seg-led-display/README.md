@@ -52,3 +52,7 @@ results in the following array:
 # A  B  C  D  E  F  G
  [1, 1, 0, 1, 1, 0, 1]
 ```
+
+## Circuit Diagram
+
+![Circuit](img/7segment-display.png "Circuit")
