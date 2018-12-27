@@ -18,3 +18,7 @@ $ python main.py
 
 You should then see a GUI pop up where you can control a Buzzer on/off functionality,
 which will also toggle the LED on/off to demonstrate things are working as expected.
+
+## Circuit Diagram
+
+![Circuit](img/buzzer.png "Circuit")
