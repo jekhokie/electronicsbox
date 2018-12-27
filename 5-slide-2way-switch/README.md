@@ -18,3 +18,7 @@ $ python main.py
 
 Adjusting the switch, you should see the status updated to which state the switch is in (polled
 every 1 second).
+
+## Circuit Diagram
+
+![Circuit](img/2way-switch.png "Circuit")
