@@ -36,3 +36,7 @@ $ python main.py
 ```
 
 You should see the LEDs on the light bar illuminate in a sequence.
+
+## Circuit Diagram
+
+![Circuit](img/light-bar-graph.png "Circuit")
