@@ -1,6 +1,6 @@
-# 6-lcd-16x4-display-4bit
+# 6-lcd-16x2-display-4bit
 
-Writes information to a 16x4 LCD display wired and programmed using 4-bit configuration connected
+Writes information to a 16x2 LCD display wired and programmed using 4-bit configuration connected
 to a Raspberry PI 3 B+. Assumes the following setup:
 
 - LCD PIN1 (VSS) to RasPi GND
