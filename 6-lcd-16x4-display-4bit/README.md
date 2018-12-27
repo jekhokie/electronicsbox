@@ -33,3 +33,7 @@ $ python main.py
 
 After running the application, you should see some text printed to the LCD screen - after
 approximately 5 seconds, the screen will be cleared and the application will terminate.
+
+## Circuit Diagram
+
+![Circuit](img/16x2-lcd.png "Circuit")
