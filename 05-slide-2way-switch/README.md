@@ -1,4 +1,4 @@
-# 5-slide-2way-switch
+# 05-slide-2way-switch
 
 Checks the status of a 2-way, 3-pin switch connected to a Raspberry PI 3 B+ and print the
 status of whether the switch is in position 1 (LEFT) or position 2 (right). Assumes the following

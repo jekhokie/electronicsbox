@@ -1,4 +1,4 @@
-# 9-photocell
+# 09-photocell
 
 Prints out the value of a photocell connected to the Raspberry PI 3 B+. Since the Raspberry PI
 3 does not have analog inputs, the circuit designed simulates analog translation. Assumes the following

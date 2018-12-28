@@ -1,4 +1,4 @@
-# 1-gui-led
+# 01-gui-led
 
 Using the tkinter library, instantiates a GUI allowing a user to toggle an LED on/off
 when connected to a Raspberry PI 3 B+ assuming the following wiring connections:

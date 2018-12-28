@@ -11,11 +11,11 @@ Please reference existing projects for connectivity information. As of writing, 
 projects have been integrated (wiring assumptions should be obtained from these project
 README.md documents, respectively):
 
-- 1-gui-led
-- 2-read-temp-humidity
-- 3-read-button-press
-- 4-gui-buzzer
-- 5-slide-2way-switch
+- 01-gui-led
+- 02-read-temp-humidity
+- 03-read-button-press
+- 04-gui-buzzer
+- 05-slide-2way-switch
 
 To run, execute the python script:
 

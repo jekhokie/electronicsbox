@@ -1,4 +1,4 @@
-# 6-lcd-16x2-display-4bit
+# 06-lcd-16x2-display-4bit
 
 Writes information to a 16x2 LCD display wired and programmed using 4-bit configuration connected
 to a Raspberry PI 3 B+. Assumes the following setup:

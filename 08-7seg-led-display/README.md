@@ -1,4 +1,4 @@
-# 8-7seg-led-display
+# 08-7seg-led-display
 
 Lights up numbers on a 7-segment LED display (single digit) connected to a Raspberry PI 3 B+.
 Assumes the following configuration for the display:

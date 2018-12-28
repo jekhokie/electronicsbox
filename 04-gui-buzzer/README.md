@@ -1,4 +1,4 @@
-# 4-gui-buzzer
+# 04-gui-buzzer
 
 Using the tkinter library, instantiates a GUI allowing a user to toggle a buzzer on/off
 when connected to a Raspberry PI 3 B+. Note that you MUST use an *active buzzer* for this

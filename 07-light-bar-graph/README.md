@@ -1,4 +1,4 @@
-# 7-light-bar-graph
+# 07-light-bar-graph
 
 Lights up various LEDs on a light bar graph (10 segment) connected to a Raspberry PI 3 B+. Assumes
 the following wiring setup (if your LED bar doesn't work after wiring like the below, simply flip it

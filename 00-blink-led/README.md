@@ -1,4 +1,4 @@
-# 0-blink-led
+# 00-blink-led
 
 Will blink an LED on/off every 1 second assuming the following wiring from the Raspberry PI:
 

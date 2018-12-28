@@ -1,4 +1,4 @@
-# 2-read-temp-humidity
+# 02-read-temp-humidity
 
 Reads temperature and humidity from a DT11 temp/humidity sensor connected to a Raspbery
 PI 3 B+ and prints the output to the terminal where the script has been run. Assumes the
