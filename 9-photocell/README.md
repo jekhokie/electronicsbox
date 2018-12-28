@@ -27,3 +27,7 @@ $ python main.py
 You should see the numeric value corresponding to approximately how long it took the capacitor to charge.
 The number output is approximately 0.1ms increments, which is the rough time it takes for the `while`
 loop in the code to execute for a pin read on the Raspberry PI.
+
+## Circuit Diagram
+
+![Circuit](img/photocell.png "Circuit")
