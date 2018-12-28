@@ -19,3 +19,7 @@ $ python main.py
 
 You should be able to adjust the slider to control the Servo motor. Ensure that the Servo external
 +5V power supply is turned on/plugged in.
+
+## Circuit Diagram
+
+![Circuit](img/servo.png "Circuit")
