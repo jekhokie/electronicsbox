@@ -1,4 +1,4 @@
-# 12-xbee-send-receive
+# 11-xbee-send-receive
 
 Using 2 XBee Series 1 (S1) modules, enables sending/receiving/controlling outputs
 to simulate remote control of devices. The configuration assumes the following:
