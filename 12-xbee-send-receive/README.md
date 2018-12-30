@@ -69,41 +69,41 @@ For the control/button (transmitter) circuit (Raspberry PI B+ First Instance):
 
 *Buttons*:
 
-- UP button POS to RasPi GPIO19 (PIN35)
-- DOWN button POS to RasPi GPIO13 (PIN33)
-- LEFT button POS to RasPi GPIO6 (PIN31)
-- RIGHT button POS to RasPi GPIO5 (PIN29)
-- UP button NEG to RasPi GND
-- DOWN button NEG to RasPi GND
-- LEFT button NEG to RasPi GND
-- RIGHT button NEG to RasPi GND
+- UP button POS to RasPi1 GPIO19 (PIN35)
+- DOWN button POS to RasPi1 GPIO13 (PIN33)
+- LEFT button POS to RasPi1 GPIO6 (PIN31)
+- RIGHT button POS to RasPi1 GPIO5 (PIN29)
+- UP button NEG to RasPi1 GND
+- DOWN button NEG to RasPi1 GND
+- LEFT button NEG to RasPi1 GND
+- RIGHT button NEG to RasPi1 GND
 
 *XBee*:
 
-- XBee VCC to RasPi +3.3V
-- XBee GND to RasPi GND
-- XBee DOUT to RasPi UART0_RXD (PIN10)
-- XBee DIN to RasPi UART0_TXD (PIN8)
+- XBee VCC to RasPi1 +3.3V
+- XBee GND to RasPi1 GND
+- XBee DOUT to RasPi1 UART0_RXD (PIN10)
+- XBee DIN to RasPi1 UART0_TXD (PIN8)
 
 For the LED (receiver) circuit (Raspberry PI 3 B+ Second Instance):
 
 *LEDs*:
 
-- UP LED NEG to 220 Ohm Resistor to RasPi GND
-- UP LED POS to RasPi GPIO21 (PIN40)
-- DOWN LED NEG to 220 Ohm Resistor to RasPi GND
-- DOWN LED POS RasPi GPIO20 (PIN38)
-- LEFT LED NEG to 220 Ohm Resistor to RasPi GND
-- LEFT LED POS RasPi GPIO16 (PIN36)
-- RIGHT LED NEG to 220 Ohm Resistor to RasPi GND
-- RIGHT LED POS RasPi GPIO12 (PIN32)
+- UP LED NEG to 220 Ohm Resistor to RasPi2 GND
+- UP LED POS to RasPi2 GPIO21 (PIN40)
+- DOWN LED NEG to 220 Ohm Resistor to RasPi2 GND
+- DOWN LED POS RasPi2 GPIO20 (PIN38)
+- LEFT LED NEG to 220 Ohm Resistor to RasPi2 GND
+- LEFT LED POS RasPi2 GPIO16 (PIN36)
+- RIGHT LED NEG to 220 Ohm Resistor to RasPi2 GND
+- RIGHT LED POS RasPi2 GPIO12 (PIN32)
 
 *XBee*:
 
-- XBee VCC to RasPi +3.3V
-- XBee GND to RasPi GND
-- XBee DOUT to RasPi UART0_RXD (PIN10)
-- XBee DIN to RasPi UART0_TXD (PIN8)
+- XBee VCC to RasPi2 +3.3V
+- XBee GND to RasPi2 GND
+- XBee DOUT to RasPi2 UART0_RXD (PIN10)
+- XBee DIN to RasPi2 UART0_TXD (PIN8)
 
 ## Raspberry PI Readiness
 
