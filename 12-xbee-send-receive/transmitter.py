@@ -40,7 +40,9 @@ last_down_state = False
 last_left_state = False
 last_right_state = False
 
-# TODO: Send initialization to ensure all LEDs are off
+# send data to ensure all LEDs are off starting out
+for i in ["0UP", "0DOWN", "0LEFT", "0RIGHT"]:
+    send_data(i)
 
 while True:
     try:
