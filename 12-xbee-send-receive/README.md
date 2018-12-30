@@ -14,7 +14,7 @@ to simulate remote control of devices. The configuration assumes the following:
 - Raspberry PI Model 3 B+
 - XBee Series 1 (S1)
 - 4x LEDs
-- 4x 220 Ohm Resistors
+- 4x 270 Ohm Resistors
 
 **Miscellaneous**:
 - XCTU Software
@@ -89,13 +89,13 @@ For the LED (receiver) circuit (Raspberry PI 3 B+ Second Instance):
 
 *LEDs*:
 
-- UP LED NEG to 220 Ohm Resistor to RasPi2 GND
+- UP LED NEG to 270 Ohm Resistor to RasPi2 GND
 - UP LED POS to RasPi2 GPIO21 (PIN40)
-- DOWN LED NEG to 220 Ohm Resistor to RasPi2 GND
+- DOWN LED NEG to 270 Ohm Resistor to RasPi2 GND
 - DOWN LED POS RasPi2 GPIO20 (PIN38)
-- LEFT LED NEG to 220 Ohm Resistor to RasPi2 GND
+- LEFT LED NEG to 270 Ohm Resistor to RasPi2 GND
 - LEFT LED POS RasPi2 GPIO16 (PIN36)
-- RIGHT LED NEG to 220 Ohm Resistor to RasPi2 GND
+- RIGHT LED NEG to 270 Ohm Resistor to RasPi2 GND
 - RIGHT LED POS RasPi2 GPIO12 (PIN32)
 
 *XBee*:
@@ -141,7 +141,7 @@ Next we'll install a virtual environment given the Python version being run is
 different than the rest of the projects in this repository:
 
 ```bash
-$ sudo easy_install3 virtualenv
+$ sudo pip3 install virtualenv
 $ virtualenv .env
 $ .env/bin/activate
 

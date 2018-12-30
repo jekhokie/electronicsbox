@@ -34,9 +34,6 @@ xbee = XBee(ser, escaped=False)
 def send_data(data):
     xbee.send("tx", dest_addr=b'\x00\x00', data=bytes("{}".format(data), 'utf-8'))
 
-# send data to the receiver
-send_data("Test")
-
 # initialize previous states
 last_up_state = False
 last_down_state = False
@@ -58,32 +55,40 @@ while True:
             last_up_state = up_state
             if up_state == False:
                 print("Pressed up")
+                send_data("1UP")
             else:
                 print("Released up")
+                send_data("0UP")
 
         # check if button changed for "down"
         if down_state != last_down_state:
             last_down_state = down_state
             if down_state == False:
                 print("Pressed down")
+                send_data("1DOWN")
             else:
                 print("Released down")
+                send_data("0DOWN")
 
         # check if button changed for "left"
         if left_state != last_left_state:
             last_left_state = left_state
             if left_state == False:
                 print("Pressed left")
+                send_data("1LEFT")
             else:
                 print("Released left")
+                send_data("0LEFT")
 
         # check if button changed for "right"
         if right_state != last_right_state:
             last_right_state = right_state
             if right_state == False:
                 print("Pressed right")
+                send_data("1RIGHT")
             else:
                 print("Released right")
+                send_data("0RIGHT")
 
         time.sleep(0.2)
     except KeyboardInterrupt:
