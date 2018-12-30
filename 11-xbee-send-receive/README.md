@@ -63,20 +63,22 @@ to verify that messages are sent/received by each XBee, indicating they have bee
 
 You can now move on to wiring the XBee modules according to the circuit diagrams below:
 
-<TODO: INSERT DIAGRAM HERE>
+**Transmitter**:
+
+![Transmitter Circuit](img/transmitter.png "Transmitter Circuit")
 
 For the control/button (transmitter) circuit (Raspberry PI B+ First Instance):
 
 *Buttons*:
 
-- UP button POS to RasPi1 GPIO19 (PIN35)
-- DOWN button POS to RasPi1 GPIO13 (PIN33)
-- LEFT button POS to RasPi1 GPIO6 (PIN31)
-- RIGHT button POS to RasPi1 GPIO5 (PIN29)
-- UP button NEG to RasPi1 GND
-- DOWN button NEG to RasPi1 GND
-- LEFT button NEG to RasPi1 GND
-- RIGHT button NEG to RasPi1 GND
+- UP button PIN1 to RasPi1 GPIO19 (PIN35)
+- DOWN button PIN1 to RasPi1 GPIO13 (PIN33)
+- LEFT button PIN1 to RasPi1 GPIO6 (PIN31)
+- RIGHT button PIN1 to RasPi1 GPIO5 (PIN29)
+- UP button PIN2 to RasPi1 GND
+- DOWN button PIN2 to RasPi1 GND
+- LEFT button PIN2 to RasPi1 GND
+- RIGHT button PIN2 to RasPi1 GND
 
 *XBee*:
 
@@ -84,6 +86,9 @@ For the control/button (transmitter) circuit (Raspberry PI B+ First Instance):
 - XBee GND to RasPi1 GND
 - XBee DOUT to RasPi1 UART0_RXD (PIN10)
 - XBee DIN to RasPi1 UART0_TXD (PIN8)
+
+**Receiver**:
+![Receiver Circuit](img/receiver.png "Receiver Circuit")
 
 For the LED (receiver) circuit (Raspberry PI 3 B+ Second Instance):
 
