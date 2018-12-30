@@ -89,7 +89,7 @@ while True:
     except KeyboardInterrupt:
         break
 
-# close the serial port
+# clean up
 GPIO.cleanup()
 xbee.halt()
 ser.close()

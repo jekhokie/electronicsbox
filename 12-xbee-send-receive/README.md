@@ -90,13 +90,13 @@ For the LED (receiver) circuit (Raspberry PI 3 B+ Second Instance):
 *LEDs*:
 
 - UP LED NEG to 220 Ohm Resistor to RasPi GND
-- UP LED POS to RasPi GPIO24 (PIN35)
+- UP LED POS to RasPi GPIO21 (PIN40)
 - DOWN LED NEG to 220 Ohm Resistor to RasPi GND
-- DOWN LED POS RasPi GPIO23 (PIN33)
+- DOWN LED POS RasPi GPIO20 (PIN38)
 - LEFT LED NEG to 220 Ohm Resistor to RasPi GND
-- LEFT LED POS RasPi GPIO22 (PIN31)
+- LEFT LED POS RasPi GPIO16 (PIN36)
 - RIGHT LED NEG to 220 Ohm Resistor to RasPi GND
-- RIGHT LED POS RasPi GPIO21 (PIN29)
+- RIGHT LED POS RasPi GPIO12 (PIN32)
 
 *XBee*:
 
