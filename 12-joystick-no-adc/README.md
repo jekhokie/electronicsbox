@@ -37,3 +37,7 @@ $ python main.py
 You should see a numeric value indicating the timing of the charge, as well as an indicator about whether
 the joystick is in an left/center/right position based on the `LEFT_THRESHOLD` and `RIGHT_THRESHOLD` values
 (assuming you have your x-axis cable hooked to the Raspberry Pi sensor pin).
+
+## Circuit Diagram
+
+![Circuit](img/analog-joystick-no-adc.png "Circuit")
