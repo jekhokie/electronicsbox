@@ -82,3 +82,7 @@ $ python main.py
 ```
 
 If all goes well, you should see your DC motor rotate in an accelerating forward/backward fashion!
+
+## Circuit Diagram
+
+![Circuit](img/arduino-motor-board-dc-motor.png "Circuit")
