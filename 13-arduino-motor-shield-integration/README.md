@@ -41,8 +41,8 @@ On the Raspberry Pi, you can use the `i2c-tools` package to detect I2C devices c
 the package and run the `i2cdetect` utility:
 
 ```bash
-sudo apt-get install i2c-tools
-sudo i2cdetect -y 1
+$ sudo apt-get install i2c-tools
+$ sudo i2cdetect -y 1
 ```
 
 Upon running the `i2cdetect` command with "1" as the argument (indicating device 1 - do *NOT* use device 0 or
