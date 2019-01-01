@@ -10,3 +10,6 @@
 *settings.json
 *settings.csv
 *settings.xml
+
+# ignore any virtualenv environments
+.env
