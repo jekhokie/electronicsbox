@@ -12,6 +12,7 @@ tutorial uses a DC motor:
 - AMC SCL pin connected to RasPi SCL1 (PIN5)
 - AMC SDA pin connected to RasPi SDA1 (PIN3)
 - RasPi GND/Motor Shield GND Pin/External +5V GND all connected (Common Ground)
+- Arduino Motor Shield VIN Jumper **REMOVED**
 
 Note that much of the code was built using the examples from the Adafruit "MotorHAT" Python library
 which is used within this tutorial. The specific example used can be found

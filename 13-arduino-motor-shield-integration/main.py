@@ -12,6 +12,7 @@
 # - AMC SCL pin connected to RasPi SCL1 (PIN5)
 # - AMC SDA pin connected to RasPi SDA1 (PIN3)
 # - RasPi GND/Motor Shield GND Pin/External +5V GND all connected (Common Ground)
+# - Arduino Motor Shield VIN Jumper **REMOVED**
 #
 # Code basis built from the following file:
 #   https://raw.githubusercontent.com/adafruit/Adafruit-Motor-HAT-Python-Library/master/examples/DCTest.py
