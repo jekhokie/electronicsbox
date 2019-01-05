@@ -92,3 +92,7 @@ $ python main.py
 
 If all goes well, you should see analog values being printed to the screen and changing when you move/adjust
 the joystick.
+
+## Circuit Diagram
+
+![Circuit](img/joystick-with-adc.png "Circuit")
