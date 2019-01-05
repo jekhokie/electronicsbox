@@ -9,6 +9,7 @@ import time
 import adafruit_mcp3xxx.mcp3008 as MCP
 import RPi.GPIO as GPIO
 from adafruit_mcp3xxx.analog_in import AnalogIn
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 # set the pin mode
 GPIO.setmode(GPIO.BCM)
@@ -38,6 +39,17 @@ y_chan = AnalogIn(mcp, JOY_Y_MCP_IN)
 
 # set up our select button on the joystick for the buzzer/horn
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+### DEBUGMOVE ###
+HORN_PIN = 19
+GPIO.setup(HORN_PIN, GPIO.OUT)
+
+# default I2C communication - all Arduino Motor Shields ship with
+# address 0x60 as referenceable I2C address
+mh = Adafruit_MotorHAT(addr=0x60)
+left_motor = mh.getMotor(1)
+#right_motor = mh.getMotor(2)
+### ENDDEBUGMOVE ###
 
 # main execution loop
 while True:
@@ -87,8 +99,42 @@ while True:
         else:
             print("Unused position at this time: x[{}], y[{}]".format(x_val, y_val))
 
+        ### DEBUGMOVE ###
+        if len(control) != 3:
+            print("Did not get valid control message ({}) - ignoring".format(control))
+        else:
+            # horn control
+            if control[0] == "1":
+                GPIO.output(HORN_PIN, GPIO.HIGH)
+            else:
+                GPIO.output(HORN_PIN, GPIO.LOW)
+
+            # motor movement for left motor and right motor control
+            lmc = control[1]
+            rmc = control[2]
+
+            if lmc == "0":
+                left_motor.run(Adafruit_MotorHAT.BACKWARD)
+                left_motor.setSpeed(255)
+            elif lmc == "1":
+                left_motor.run(Adafruit_MotorHAT.RELEASE)
+                left_motor.setSpeed(0)
+            elif lmc == "2":
+                left_motor.run(Adafruit_MotorHAT.FORWARD)
+                left_motor.setSpeed(255)
+            else:
+                print("Invalid entry for left motor control: {}".format(lmc))
+        ### ENDDEBUGMOVE ###
+
         # print raw values
         print(control)
         time.sleep(0.2)
     except KeyboardInterrupt:
         break
+
+# clean up, stop all activities
+GPIO.cleanup()
+
+### DEBUGMOVE ###
+mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+### ENDDEBUGMOVE ###

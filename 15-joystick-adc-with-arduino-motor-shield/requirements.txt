@@ -1,2 +1,3 @@
-Adafruit-MotorHAT
-RPi.GPIO
+adafruit-circuitpython-busdevice
+adafruit-circuitpython-mcp3xxx
+adafruit-motorhat
