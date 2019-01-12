@@ -1,4 +1,4 @@
-# 14-joystick-controlled-xbee-comm-robot
+# 15-joystick-controlled-xbee-comm-robot
 
 This tutorial is a piecing together of the following projects to formulate the basis for a robot and
 associated robotic control:
