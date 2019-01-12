@@ -163,7 +163,7 @@ needed to launch the script when the Raspberry Pi boots:
 
 ```bash
 # assuming the code is in the pi user Desktop directory
-cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-bot
+cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-robot
 . .env/bin/activate
 python robot.py
 ```
