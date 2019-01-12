@@ -1,3 +1,5 @@
 adafruit-circuitpython-busdevice
 adafruit-circuitpython-mcp3xxx
 adafruit-motorhat
+RPi.GPIO
+xbee

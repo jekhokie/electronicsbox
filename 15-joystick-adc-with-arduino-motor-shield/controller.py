@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 #
-# Controller for robot actions.
+# Controller for robot actions. Able to perform actions such as:
+#   - Forward
+#   - Reverse
+#   - Turn Right
+#   - Turn Left
+#   - Buzz Horn
+#
+# Uses the XBee device to communicate with robot target (see README for wiring).
 
 import busio
 import digitalio
 import board
 import time
+import serial
 import adafruit_mcp3xxx.mcp3008 as MCP
 import RPi.GPIO as GPIO
+from xbee import XBee
 from adafruit_mcp3xxx.analog_in import AnalogIn
-from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 # set the pin mode
 GPIO.setmode(GPIO.BCM)
@@ -27,29 +35,26 @@ MCP_SCK_PIN = board.SCK     # MCP3008 SCLK
 JOY_X_MCP_IN = MCP.P0       # MCP3008 Joystick X-Axis Input (CH0)
 JOY_Y_MCP_IN = MCP.P1       # MCP3008 Joystick Y-Axis Input (CH1)
 BUTTON_PIN = 13             # joystick select for horn/buzzer
+SERIAL_PORT = "/dev/ttyS0"  # serial port for xbee usage
+BAUD_RATE = 9600            # baud rate for xbee communication
 
-# create SPI bus, chip select, and resulting mcp object
+# ADC setup - create SPI bus, chip select, and resulting mcp object
 spi = busio.SPI(clock=MCP_SCK_PIN, MISO=MCP_MISO_PIN, MOSI=MCP_MOSI_PIN)
 cs = digitalio.DigitalInOut(MCP_CS_PIN)
 mcp = MCP.MCP3008(spi, cs)
 
-# create analog inputs for the joystick on the MCP3008
+# create analog inputs for the joystick on the MCP3008, and set up joystick horn button
 x_chan = AnalogIn(mcp, JOY_X_MCP_IN)
 y_chan = AnalogIn(mcp, JOY_Y_MCP_IN)
-
-# set up our select button on the joystick for the buzzer/horn
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-### DEBUGMOVE ###
-HORN_PIN = 19
-GPIO.setup(HORN_PIN, GPIO.OUT)
+# configure the xbee
+ser = serial.Serial(SERIAL_PORT, baudrate=BAUD_RATE)
+xbee = XBee(ser, escaped=False)
 
-# default I2C communication - all Arduino Motor Shields ship with
-# address 0x60 as referenceable I2C address
-mh = Adafruit_MotorHAT(addr=0x60)
-left_motor = mh.getMotor(1)
-#right_motor = mh.getMotor(2)
-### ENDDEBUGMOVE ###
+# handler for sending data to a receiving XBee device
+def send_data(data):
+    xbee.send("tx", dest_addr=b'\x00\x00', data=bytes("{}".format(data), 'utf-8'))
 
 # main execution loop
 while True:
@@ -95,36 +100,14 @@ while True:
             elif x_val > MAX_THRESHOLD:
                 print("right")
                 control = "{}{}{}".format(control, 2, 0)
+
         # - unknown state - ignore
         else:
             print("Unused position at this time: x[{}], y[{}]".format(x_val, y_val))
+            continue
 
-        ### DEBUGMOVE ###
-        if len(control) != 3:
-            print("Did not get valid control message ({}) - ignoring".format(control))
-        else:
-            # horn control
-            if control[0] == "1":
-                GPIO.output(HORN_PIN, GPIO.HIGH)
-            else:
-                GPIO.output(HORN_PIN, GPIO.LOW)
-
-            # motor movement for left motor and right motor control
-            lmc = control[1]
-            rmc = control[2]
-
-            if lmc == "0":
-                left_motor.run(Adafruit_MotorHAT.BACKWARD)
-                left_motor.setSpeed(255)
-            elif lmc == "1":
-                left_motor.run(Adafruit_MotorHAT.RELEASE)
-                left_motor.setSpeed(0)
-            elif lmc == "2":
-                left_motor.run(Adafruit_MotorHAT.FORWARD)
-                left_motor.setSpeed(255)
-            else:
-                print("Invalid entry for left motor control: {}".format(lmc))
-        ### ENDDEBUGMOVE ###
+        # send the control message over the xbee
+        send_data(control)
 
         # print raw values
         print(control)
@@ -134,7 +117,3 @@ while True:
 
 # clean up, stop all activities
 GPIO.cleanup()
-
-### DEBUGMOVE ###
-mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-### ENDDEBUGMOVE ###
