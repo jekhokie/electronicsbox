@@ -162,7 +162,8 @@ automatically on boot. In order to enable this, edit the `/etc/rc.local` file to
 needed to launch the script when the Raspberry Pi boots:
 
 ```bash
-cd /home/pi/Desktop/raspi-projects/15-joystick-adc-with-arduino-motor-shield
+# assuming the code is in the pi user Desktop directory
+cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-bot
 . .env/bin/activate
 python robot.py
 ```
