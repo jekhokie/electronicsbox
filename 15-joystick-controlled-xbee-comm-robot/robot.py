@@ -14,7 +14,7 @@
 # the Raspberry Pi which controls the robot and enter the following commands
 # right before the 'exit 0' command:
 # 
-#   cd /home/pi/Desktop/raspi-projects/15-joystick-adc-with-arduino-motor-shield
+#   cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-robot
 #   . .env/bin/activate
 #   python robot.py
 #
