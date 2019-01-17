@@ -27,6 +27,7 @@ from xbee import XBee
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 
 # assign the pins and XBee device settings
+LIGHT_PIN = 12
 HORN_PIN = 19
 READY_PIN = 21
 SERIAL_PORT = "/dev/ttyS0"
@@ -37,13 +38,16 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # set up the horn and ready pins as output
+GPIO.setup(LIGHT_PIN, GPIO.OUT)
 GPIO.setup(HORN_PIN, GPIO.OUT)
 GPIO.setup(READY_PIN, GPIO.OUT)
 
 # set up the motor controllers
 mh = Adafruit_MotorHAT(addr=0x60)
-left_motor = mh.getMotor(1)
-right_motor = mh.getMotor(2)
+left_motor_1 = mh.getMotor(1)
+left_motor_2 = mh.getMotor(2)
+right_motor_1 = mh.getMotor(3)
+right_motor_2 = mh.getMotor(4)
 
 # handler for whenever data is received from transmitters - operates asynchronously
 def receive_data(data):
@@ -51,15 +55,21 @@ def receive_data(data):
     rx = data['rf_data'].decode('utf-8')
 
     # sanity check we received the correct number of inputs for horn, left, and right motor
-    if len(rx) != 3:
+    if len(rx) != 4:
         print("received invalid data: {}".format(rx))
         return
 
     # gather the control signals
-    horn, l_motor, r_motor = rx[0], rx[1], rx[2]
+    light, horn, l_motor, r_motor = rx[0], rx[1], rx[2], rx[3]
 
     # parse the received contents and take action as appropriate
     # received is actionable
+    # - light control
+    if light == "1":
+        GPIO.output(LIGHT_PIN, GPIO.HIGH)
+    else:
+        GPIO.output(LIGHT_PIN, GPIO.LOW)
+
     # - horn control
     if horn == "1":
         GPIO.output(HORN_PIN, GPIO.HIGH)
@@ -68,27 +78,39 @@ def receive_data(data):
 
     # - motor movement for left motor control
     if l_motor == "0":
-        left_motor.run(Adafruit_MotorHAT.BACKWARD)
-        left_motor.setSpeed(255)
+        left_motor_1.run(Adafruit_MotorHAT.BACKWARD)
+        left_motor_2.run(Adafruit_MotorHAT.BACKWARD)
+        left_motor_1.setSpeed(255)
+        left_motor_2.setSpeed(255)
     elif l_motor == "1":
-        left_motor.run(Adafruit_MotorHAT.RELEASE)
-        left_motor.setSpeed(0)
+        left_motor_1.run(Adafruit_MotorHAT.RELEASE)
+        left_motor_2.run(Adafruit_MotorHAT.RELEASE)
+        left_motor_1.setSpeed(0)
+        left_motor_2.setSpeed(0)
     elif l_motor == "2":
-        left_motor.run(Adafruit_MotorHAT.FORWARD)
-        left_motor.setSpeed(255)
+        left_motor_1.run(Adafruit_MotorHAT.FORWARD)
+        left_motor_2.run(Adafruit_MotorHAT.FORWARD)
+        left_motor_1.setSpeed(255)
+        left_motor_2.setSpeed(255)
     else:
         print("Invalid entry for left motor control: {}".format(lmc))
 
     # - motor movement for right motor control
     if r_motor == "0":
-        right_motor.run(Adafruit_MotorHAT.BACKWARD)
-        right_motor.setSpeed(255)
+        right_motor_1.run(Adafruit_MotorHAT.BACKWARD)
+        right_motor_2.run(Adafruit_MotorHAT.BACKWARD)
+        right_motor_1.setSpeed(255)
+        right_motor_2.setSpeed(255)
     elif r_motor == "1":
-        right_motor.run(Adafruit_MotorHAT.RELEASE)
-        right_motor.setSpeed(0)
+        right_motor_1.run(Adafruit_MotorHAT.RELEASE)
+        right_motor_2.run(Adafruit_MotorHAT.RELEASE)
+        right_motor_1.setSpeed(0)
+        right_motor_2.setSpeed(0)
     elif r_motor == "2":
-        right_motor.run(Adafruit_MotorHAT.FORWARD)
-        right_motor.setSpeed(255)
+        right_motor_1.run(Adafruit_MotorHAT.FORWARD)
+        right_motor_2.run(Adafruit_MotorHAT.FORWARD)
+        right_motor_1.setSpeed(255)
+        right_motor_2.setSpeed(255)
     else:
         print("Invalid entry for right motor control: {}".format(lmc))
 
@@ -113,6 +135,8 @@ while True:
 # clean up
 GPIO.cleanup()
 xbee.halt()
-left_motor.run(Adafruit_MotorHAT.RELEASE)
-right_motor.run(Adafruit_MotorHAT.RELEASE)
+left_motor_1.run(Adafruit_MotorHAT.RELEASE)
+left_motor_2.run(Adafruit_MotorHAT.RELEASE)
+right_motor_1.run(Adafruit_MotorHAT.RELEASE)
+right_motor_2.run(Adafruit_MotorHAT.RELEASE)
 ser.close()
