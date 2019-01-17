@@ -17,11 +17,11 @@ Piezo buzzer, +5V power regulator, USB charger, and 4x AA batteries.
 The following diagram depicts the control station (base station) with the 4-way analog joystick plus
 button (which triggers the piezo buzzer as a horn on the robot):
 
-TODO: FILLMEIN
+![Circuit](img/joystick-controlled-xbee-robot--controller.png "Circuit")
 
 For the Robot, the following schematic applies:
 
-TODO: FILLMEIN
+![Circuit](img/joystick-controlled-xbee-robot--robot.png "Circuit")
 
 ## Control Station
 
@@ -163,7 +163,7 @@ needed to launch the script when the Raspberry Pi boots:
 
 ```bash
 # assuming the code is in the pi user Desktop directory
-cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-bot
+cd /home/pi/Desktop/raspi-projects/15-joystick-controlled-xbee-comm-robot
 . .env/bin/activate
 python robot.py
 ```
