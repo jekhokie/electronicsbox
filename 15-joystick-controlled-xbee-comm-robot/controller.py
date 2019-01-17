@@ -34,6 +34,7 @@ MCP_MOSI_PIN = board.MOSI   # MCP3008 MOSI
 MCP_SCK_PIN = board.SCK     # MCP3008 SCLK
 JOY_X_MCP_IN = MCP.P0       # MCP3008 Joystick X-Axis Input (CH0)
 JOY_Y_MCP_IN = MCP.P1       # MCP3008 Joystick Y-Axis Input (CH1)
+LIGHT_PIN = 12              # pin for on/off for under-carriage lighting
 BUTTON_PIN = 13             # joystick select for horn/buzzer
 SERIAL_PORT = "/dev/ttyS0"  # serial port for xbee usage
 BAUD_RATE = 9600            # baud rate for xbee communication
@@ -43,9 +44,11 @@ spi = busio.SPI(clock=MCP_SCK_PIN, MISO=MCP_MISO_PIN, MOSI=MCP_MOSI_PIN)
 cs = digitalio.DigitalInOut(MCP_CS_PIN)
 mcp = MCP.MCP3008(spi, cs)
 
-# create analog inputs for the joystick on the MCP3008, and set up joystick horn button
+# create analog inputs for the joystick on the MCP3008,
+# and set up joystick horn and undercarriage light buttons
 x_chan = AnalogIn(mcp, JOY_X_MCP_IN)
 y_chan = AnalogIn(mcp, JOY_Y_MCP_IN)
+GPIO.setup(LIGHT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # configure the xbee
@@ -57,6 +60,10 @@ def send_data(data):
     xbee.send("tx", dest_addr=b'\x00\x00', data=bytes("{}".format(data), 'utf-8'))
 
 # main execution loop
+# maintain the state of the light since we are using a momentary button
+# to enable/disable teh light
+light_state = 0
+last_light_button_state = False
 while True:
     try:
         # perform one-time lookup of values for joystick
@@ -65,15 +72,28 @@ while True:
         y_val = y_chan.value
         y_volt = y_chan.voltage
         buzzer = GPIO.input(BUTTON_PIN)
+        light = GPIO.input(LIGHT_PIN)
 
         # calculate motor control on/off based on following scheme:
-        #       <BUZZER><LEFT_MOTOR><RIGHT_MOTOR>
-        # where the BUZZER is either 0 or 1 and each motor
+        #       <LIGHT><BUZZER><LEFT_MOTOR><RIGHT_MOTOR>
+        # where the LIGHT is either 0 or 1,
+        # BUZZER is either 0 or 1 and each motor
         # value is either a 0 (reverse), 1 (stop), or 2 (forward)
-        # first, the buzzer
-        control = "0"
+        # first, the light
+        if light == False and last_light_button_state == True:
+            if light_state == 0:
+                light_state = 1
+            else:
+                light_state = 0
+
+        control = "{}".format(light_state)
+        last_light_button_state = light
+
+        # next, the buzzer
         if buzzer == False:
-            control = "1"
+            control = "{}{}".format(control, 1)
+        else:
+            control = "{}{}".format(control, 0)
 
         # next, the motors
         # - brake: both off
