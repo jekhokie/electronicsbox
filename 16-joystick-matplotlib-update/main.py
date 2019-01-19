@@ -83,7 +83,18 @@ def update_graph(i, xs, ys, x_start, x_size, y_start, y_size):
     ax.set_ylim(-MOTOR_MAX, MOTOR_MAX)
     ax.set_autoscale_on(False)
     ax.plot(scaled_x, scaled_y, "bs")
-    ax.annotate(str("{}, {}".format(scaled_x, scaled_y)), (scaled_x + 5.0, scaled_y + 5.0))
+
+    # handle "do nothing" when in dead zone
+    # x_start, y_start are positive (upper right quadrant)
+    # x_size, y_size are negative (draw to lower left quadrant)
+    annotate_x = "DEAD"
+    annotate_y = "DEAD"
+    if scaled_x < (x_start + x_size) or scaled_x > x_start or scaled_y < (y_start + y_size) or scaled_y > y_start:
+        annotate_x = scaled_x
+        annotate_y = scaled_y
+
+    # add coordinate data points
+    ax.annotate(str("{}, {}".format(annotate_x, annotate_y)), (scaled_x + 5.0, scaled_y + 5.0))
 
     # plot the "dead" zone where no movement is expected
     dead_zone = patches.Rectangle((x_start, y_start), x_size, y_size,
