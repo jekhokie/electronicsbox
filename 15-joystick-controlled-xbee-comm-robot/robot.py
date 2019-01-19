@@ -55,15 +55,14 @@ def receive_data(data):
     rx = data['rf_data'].decode('utf-8')
 
     # sanity check we received the correct number of inputs for horn, left, and right motor
-    if len(rx) != 4:
+    if len(rx) != 10:
         print("received invalid data: {}".format(rx))
         return
 
     # gather the control signals
-    light, horn, l_motor, r_motor = rx[0], rx[1], rx[2], rx[3]
+    light, horn, l_motor_dir, l_speed, r_motor_dir, r_speed = rx[0], rx[1], rx[2], rx[3:-4], rx[6], rx[7:]
 
     # parse the received contents and take action as appropriate
-    # received is actionable
     # - light control
     if light == "1":
         GPIO.output(LIGHT_PIN, GPIO.HIGH)
@@ -76,41 +75,51 @@ def receive_data(data):
     else:
         GPIO.output(HORN_PIN, GPIO.LOW)
 
+    # attempt to convert string to integer which is what the library expects
+    l_motor_speed = 0
+    r_motor_speed = 0
+    try:
+        l_motor_speed = int(l_speed)
+        r_motor_speed = int(r_speed)
+    except(Exception):
+        raise("Could not convert motor speed to integer for left/right motors: {}/{}".format(l_speed, r_speed))
+        return
+
     # - motor movement for left motor control
-    if l_motor == "0":
+    if l_motor_dir == "0":
         left_motor_1.run(Adafruit_MotorHAT.BACKWARD)
         left_motor_2.run(Adafruit_MotorHAT.BACKWARD)
-        left_motor_1.setSpeed(255)
-        left_motor_2.setSpeed(255)
-    elif l_motor == "1":
+        left_motor_1.setSpeed(l_motor_speed)
+        left_motor_2.setSpeed(l_motor_speed)
+    elif l_motor_dir == "1":
         left_motor_1.run(Adafruit_MotorHAT.RELEASE)
         left_motor_2.run(Adafruit_MotorHAT.RELEASE)
         left_motor_1.setSpeed(0)
         left_motor_2.setSpeed(0)
-    elif l_motor == "2":
+    elif l_motor_dir == "2":
         left_motor_1.run(Adafruit_MotorHAT.FORWARD)
         left_motor_2.run(Adafruit_MotorHAT.FORWARD)
-        left_motor_1.setSpeed(255)
-        left_motor_2.setSpeed(255)
+        left_motor_1.setSpeed(l_motor_speed)
+        left_motor_2.setSpeed(l_motor_speed)
     else:
         print("Invalid entry for left motor control: {}".format(lmc))
 
     # - motor movement for right motor control
-    if r_motor == "0":
+    if r_motor_dir == "0":
         right_motor_1.run(Adafruit_MotorHAT.BACKWARD)
         right_motor_2.run(Adafruit_MotorHAT.BACKWARD)
-        right_motor_1.setSpeed(255)
-        right_motor_2.setSpeed(255)
-    elif r_motor == "1":
+        right_motor_1.setSpeed(r_motor_speed)
+        right_motor_2.setSpeed(r_motor_speed)
+    elif r_motor_dir == "1":
         right_motor_1.run(Adafruit_MotorHAT.RELEASE)
         right_motor_2.run(Adafruit_MotorHAT.RELEASE)
         right_motor_1.setSpeed(0)
         right_motor_2.setSpeed(0)
-    elif r_motor == "2":
+    elif r_motor_dir == "2":
         right_motor_1.run(Adafruit_MotorHAT.FORWARD)
         right_motor_2.run(Adafruit_MotorHAT.FORWARD)
-        right_motor_1.setSpeed(255)
-        right_motor_2.setSpeed(255)
+        right_motor_1.setSpeed(r_motor_speed)
+        right_motor_2.setSpeed(r_motor_speed)
     else:
         print("Invalid entry for right motor control: {}".format(lmc))
 
