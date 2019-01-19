@@ -89,12 +89,33 @@ def update_graph(i, xs, ys, x_start, x_size, y_start, y_size):
     # x_size, y_size are negative (draw to lower left quadrant)
     annotate_x = "DEAD"
     annotate_y = "DEAD"
+    annotate_l_motor = 0
+    annotate_r_motor = 0
     if scaled_x < (x_start + x_size) or scaled_x > x_start or scaled_y < (y_start + y_size) or scaled_y > y_start:
+        # annotate the raw coordinates
         annotate_x = scaled_x
         annotate_y = scaled_y
 
+        # annotate left/right motor speeds based on direction
+        # x in dead zone is straight ahead (assume this)
+        # x < dead zone is left-hand turn
+        # x > dead zone is right-hand turn
+        if scaled_x > (x_start + x_size) and scaled_x < x_start:
+            # - straight ahead
+            annotate_l_motor = scaled_y
+            annotate_r_motor = scaled_y
+        if scaled_x < (x_start + x_size):
+            # - left-hand turn
+            annotate_l_motor = (1 - (scaled_y / MOTOR_MAX)) * scaled_y
+            annotate_r_motor = scaled_y
+        elif scaled_x > x_start:
+            # - right-hand turn
+            annotate_l_motor = scaled_y
+            annotate_r_motor = (1 - (scaled_x / MOTOR_MAX)) * scaled_y
+
     # add coordinate data points
     ax.annotate(str("{}, {}".format(annotate_x, annotate_y)), (scaled_x + 5.0, scaled_y + 5.0))
+    ax.annotate(str("L{:03d}, R{:03d}".format(int(annotate_l_motor), int(annotate_r_motor))), (scaled_x + 5.0, scaled_y - 15.0))
 
     # plot the "dead" zone where no movement is expected
     dead_zone = patches.Rectangle((x_start, y_start), x_size, y_size,
