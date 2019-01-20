@@ -52,3 +52,21 @@ $ /usr/local/bin/whisper-fetch.py /opt/graphite/storage/whisper/test/something/f
 
 You now have a fully-functioning Graphite setup for ingesting metrics from sensors that have the ability
 to transmit UDP packets over the same network that the Raspberry Pi is running the Graphite stack!
+
+## Installing Grafana
+
+Now that we have a fully-functioning Graphite instance we can put the spectacular Grafana web interface
+in front if it for visualizations. At the time of this project, Grafana version 5.4.3 was being used
+along with Raspbian 9 (Stretch) - same disclaimer applies for variation in versions. Simply run the
+following script to get the Grafana interface installed:
+
+```bash
+$ ./install_grafana.sh
+```
+
+Once Grafana has been installed, you can log into the interface using the default login credentials
+`admin/admin` by visiting the following URL: `http://localhost:3000`.
+
+Once logged in, add a Graphite data source by pointing the source to `http://localhost` and testing the
+connection. If all goes well, you're off to the races and can start visualizing the data coming into the
+Graphite stack running on the same Raspberry Pi!
