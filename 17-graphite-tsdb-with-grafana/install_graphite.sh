@@ -87,7 +87,7 @@ if [ ! -L /etc/apache2/sites-enabled/graphite-webapp.conf ]; then
 fi
 
 # perform Apache reload to align enabled/disabled sites
-if [ needs_reload == 1 ]; then
+if [ $needs_reload == 1 ]; then
   sudo systemctl reload apache2
 fi
 
