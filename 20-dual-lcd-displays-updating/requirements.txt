@@ -1,0 +1,4 @@
+pytz
+netifaces
+ntplib
+adafruit-circuitpython-charlcd
