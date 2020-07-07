@@ -1,9 +1,12 @@
-# RasPi Projects
+# ElectronicsBox
 
 Collection of various scripts, projects, and other material in developing circuits and functionality
-on a Raspberry PI microcomputer. This repository is a way to keep all materials in one location
-and build over time, with the intention of re-learning basics and eventually growing into a larger
-collection of advanced materials.
+using various components, circuits, and controllers. Each project directory is prefixed with the primary
+controller/focus area used, with the following naming conventions/mappings being predominantly present:
+
+* `arduo`: Arduino Duemilanove
+* `esp8266`: ESP8266-01
+* `raspi3`: Raspberry PI 3
 
 ## Circuit Diagrams
 
