@@ -7,7 +7,7 @@ const int irSensorLeft = 7;
 const int irSensorRight = 8;
 
 // configs for default speed
-const int speed = 128;    // max speed == 256
+const int speed = 64;    // max speed == 256
 
 // vars //
 int leftSensorData;
@@ -43,22 +43,20 @@ void loop() {
   myMotor2->setSpeed(speed);
 
   // determine next course of action
-  if (leftSensorData == HIGH && rightSensorData == HIGH) {    // on track - straight
-    myMotor1->run(FORWARD);
-    myMotor2->run(FORWARD);
-  }
-  if (leftSensorData == HIGH && rightSensorData == LOW) {    // veering left - turn right to adjust
-    myMotor1->run(FORWARD);
-    myMotor2->run(RELEASE);
-  }
-  if (leftSensorData == LOW && rightSensorData == HIGH) {    // veering right - turn left to adjust
-    myMotor1->run(RELEASE);
-    myMotor2->run(FORWARD);
-  }
-  if (leftSensorData == LOW && rightSensorData == LOW) {    // end tape - stop
+  if (leftSensorData == HIGH && rightSensorData == HIGH) {    // end tape - stop
     myMotor1->run(RELEASE);
     myMotor2->run(RELEASE);
   }
-
-  delay(250);
+  if (leftSensorData == HIGH && rightSensorData == LOW) {    // veering right - turn left to adjust
+    myMotor1->run(RELEASE);
+    myMotor2->run(FORWARD);
+  }
+  if (leftSensorData == LOW && rightSensorData == HIGH) {    // veering left - turn right to adjust
+    myMotor1->run(FORWARD);
+    myMotor2->run(RELEASE);
+  }
+  if (leftSensorData == LOW && rightSensorData == LOW) {    // on track - straight
+    myMotor1->run(FORWARD);
+    myMotor2->run(FORWARD);
+  }
 }
