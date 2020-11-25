@@ -10,8 +10,8 @@ Specifically, the following information is displayed and configurable via the
 
 * RSS feed latest article details
 * Day/date
-* Stock symbol ticker
-* Weather (current and current day forecast)
+* Stock symbol ticker (from Yahoo financials)
+* Weather (current and current day forecast from OpenWeatherMap)
 * Sonos "What's playing"
 * Last updated date/time
 
