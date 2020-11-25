@@ -1,0 +1,18 @@
+# font files to use
+font_file: Verdana.ttf
+font_file_bold: Verdana Bold.ttf
+font_file_italic: Verdana Italic.ttf
+
+# ticker symbol for stock checking
+ticker_symbol: AAPL
+
+# rss feed to use
+rss_link: https://krebsonsecurity.com/feed/
+
+# openweathermap API key
+owm_api_key: FILLMEIN
+owm_city_latitude: 42.360081
+owm_city_longitude: -71.058884
+
+# sonos endpoint
+sonos_host: 192.168.1.250
