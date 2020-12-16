@@ -7,16 +7,19 @@
 #   - DRY up the code, and organize into functions/better organization
 #   - Better error handling in case of failed calls/etc.
 
+# get absolute path for use
+import os
+abs_path = os.path.dirname(os.path.realpath(__file__))
+
 import feedparser
 import io
 import json
-import os
 import requests
 import sys
 import textwrap
 import time
 import yaml
-sys.path.append('lib')
+sys.path.append(os.path.join(abs_path, 'lib'))
 from datetime import datetime
 from PIL import Image, ImageFont, ImageDraw
 from pyowm import OWM
@@ -25,7 +28,7 @@ from xml.dom.minidom import parseString
 from yahoo_fin import stock_info
 
 # load configs
-with open('config/settings.yml', 'r') as yml:
+with open(os.path.join(abs_path, 'config/settings.yml'), 'r') as yml:
     config = yaml.load(yml, Loader=yaml.FullLoader)
 
 # configurable parameters - update in config/settings.yml
@@ -41,7 +44,7 @@ sleep_interval_sec = config['sleep_interval_sec']
 pihole_host = config['pihole_host']
 
 # image output configurations
-output_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'output')
+output_dir = os.path.join(abs_path, 'output')
 
 # constants
 BLACK = 'rgb(0,0,0)'
