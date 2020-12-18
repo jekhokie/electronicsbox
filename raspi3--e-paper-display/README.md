@@ -1,7 +1,5 @@
 # raspi3--e-paper-display
 
-**NOTE**: THIS README DESCRIBES THE DESIRED END STATE, BUT THE AUTOMATION IS STILL IN PROGRESS.
-
 Display various information on an e-Paper display such as the one sold by Waveshare
 [here](https://www.waveshare.com/product/7.5inch-hd-e-paper-b.htm). The connectivity is pretty
 straightforward and utilizes a Raspberry Pi Zero WH and a HAT for the e-Paper controller.

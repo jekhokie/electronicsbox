@@ -24,7 +24,6 @@ from datetime import datetime
 from PIL import Image, ImageFont, ImageDraw
 from pyowm import OWM
 from waveshare_epd import epd7in5b_V2
-from xml.dom.minidom import parseString
 from yahoo_fin import stock_info
 
 # load configs
