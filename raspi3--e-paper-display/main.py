@@ -127,15 +127,28 @@ try:
         stock_font_diff = ImageFont.truetype(font_file, 18)
 
         # get yahoo ticker symbol
-        quote = stock_info.get_quote_table(ticker_symbol)
-        price = round(quote['Quote Price'], 2)
-        prev_close = round(quote['Previous Close'], 2)
-        delta = round(price - prev_close, 2)
-        symbol = '+' if delta >= 0 else '-'   # display up/down arrow based on movement
+        try:
+            quote = stock_info.get_quote_table(ticker_symbol)
+            price = round(quote['Quote Price'], 2)
+            prev_close = round(quote['Previous Close'], 2)
+            delta = round(price - prev_close, 2)
+            symbol = '+' if delta >= 0 else '-'   # display up/down arrow based on movement
 
-        # format outputs for display
-        price_str = "${:.2f}".format(price)
-        diff_str = "({} ${:.2f})".format(str(symbol), abs(delta))
+            # format outputs for display
+            price_str = "${:.2f}".format(price)
+            diff_str = "({} ${:.2f})".format(str(symbol), abs(delta))
+        except socket.gaierror as e:
+            print("Failure to get stock quote - DNS error: {}".format(str(e)))
+
+            # format outputs for display
+            price_str = "ERROR"
+            diff_str = "DNS"
+        except:
+            print("Failure to get/process stock quote - unknown error: {}".format(str(e)))
+
+            # format outputs for display
+            price_str = "ERROR"
+            diff_str = "Unknown"
 
         # calculate size of display values
         ticker_center_x = PAPER_W - (PAPER_W / 4 / 2)
