@@ -15,6 +15,7 @@ import feedparser
 import io
 import json
 import requests
+import socket
 import sys
 import textwrap
 import time
