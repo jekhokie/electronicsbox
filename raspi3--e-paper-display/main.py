@@ -144,7 +144,7 @@ try:
             # format outputs for display
             price_str = "ERROR"
             diff_str = "DNS"
-        except:
+        except Exception as e:
             print("Failure to get/process stock quote - unknown error: {}".format(str(e)))
 
             # format outputs for display
