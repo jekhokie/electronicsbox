@@ -25,7 +25,7 @@ pyquery==1.4.3
 PySocks==1.7.1
 python-dateutil==2.8.1
 pytz==2020.4
-PyYAML==5.3.1
+PyYAML==5.4
 requests==2.25.0
 requests-html==0.10.0
 RPi.GPIO==0.7.0
